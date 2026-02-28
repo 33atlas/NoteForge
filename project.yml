@@ -1,0 +1,53 @@
+name: NoteForge
+options:
+  bundleIdPrefix: com.noteforge
+  deploymentTarget:
+    macOS: "13.0"
+  xcodeVersion: "15.0"
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    MACOSX_DEPLOYMENT_TARGET: "13.0"
+    CODE_SIGN_IDENTITY: "-"
+    CODE_SIGNING_REQUIRED: NO
+    CODE_SIGN_ENTITLEMENTS: ""
+
+packages:
+  SQLite:
+    url: https://github.com/stephencelis/SQLite.swift
+    from: "0.15.0"
+  Ink:
+    url: https://github.com/JohnSundell/Ink
+    from: "0.6.0"
+  HotKey:
+    url: https://github.com/soffes/HotKey
+    from: "0.2.0"
+  FileWatcher:
+    url: https://github.com/eonist/FileWatcher
+    from: "0.2.3"
+
+targets:
+  NoteForge:
+    type: application
+    platform: macOS
+    sources:
+      - Sources
+    resources:
+      - Resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.noteforge.app
+        INFOPLIST_FILE: Resources/Info.plist
+        PRODUCT_NAME: NoteForge
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        COMBINE_HIDPI_IMAGES: YES
+        LD_RUNPATH_SEARCH_PATHS:
+          - $(inherited)
+          - "@executable_path/../Frameworks"
+    dependencies:
+      - package: SQLite
+        product: SQLite
+      - package: Ink
+      - package: HotKey
+      - package: FileWatcher
