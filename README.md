@@ -2,68 +2,40 @@
 
 A modern personal knowledge management (PKM) app for macOS.
 
-## Requirements
+## Features
 
-- macOS 13.0 or later
-- Xcode 15.0+
-- XcodeGen (for generating the Xcode project)
-
-## Setup
-
-### 1. Install XcodeGen
-
-On macOS:
-```bash
-brew install xcodegen
-```
-
-### 2. Generate the Xcode Project
-
-```bash
-cd NoteForge
-xcodegen generate
-```
-
-### 3. Open in Xcode
-
-```bash
-open NoteForge.xcodeproj
-```
-
-### 4. Build and Run
-
-Press ⌘+R in Xcode, or:
-```bash
-xcodebuild -project NoteForge.xcodeproj -scheme NoteForge -configuration Debug build
-```
+- Note taking with markdown support
+- SQLite database for persistent storage
+- Global hotkeys for quick access
+- File watching for external changes
 
 ## Dependencies
 
-- **SQLite.swift** - SQLite database wrapper
-- **Ink** - Fast Markdown parsing
-- **HotKey** - Global keyboard shortcuts
-- **FileWatcher** - File system monitoring
+- [SQLite.swift](https://github.com/stephencelis/SQLite.swift) - Database
+- [Ink](https://github.com/JohnSundell/Ink) - Markdown parsing
+- [HotKey](https://github.com/soffes/HotKey) - Global keyboard shortcuts
+- [FileWatcher](https://github.com/eonist/FileWatcher) - File system monitoring
+
+## Setup
+
+1. Generate the Xcode project:
+   ```bash
+   xcodegen generate
+   ```
+
+2. Open in Xcode:
+   ```bash
+   open NoteForge.xcodeproj
+   ```
+
+3. Build and run (Cmd+R)
 
 ## Project Structure
 
-```
-NoteForge/
-├── Sources/
-│   ├── App/           # App entry point
-│   ├── Models/        # Data models
-│   ├── Services/      # Business logic & database
-│   └── Views/         # SwiftUI views
-├── Resources/         # App resources
-├── project.yml        # XcodeGen configuration
-└── Package.swift      # Swift Package Manager config
-```
-
-## Usage
-
-- **⌘+N** - Create new note
-- **⌘+F** - Search notes
-- Select a note from the sidebar to view/edit
+- `Sources/` - Swift source files
+- `Resources/` - Assets and Info.plist
+- `project.yml` - XcodeGen configuration
 
 ## License
 
-MIT License
+MIT

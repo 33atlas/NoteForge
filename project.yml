@@ -2,9 +2,13 @@ name: NoteForge
 options:
   bundleIdPrefix: com.33atlas
   deploymentTarget:
-    macOS: "13.0"
+    macOS: "12.0"
   xcodeVersion: "15.0"
-  generateEmptyDirectories: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    MACOSX_DEPLOYMENT_TARGET: "12.0"
 
 packages:
   SQLite:
@@ -26,23 +30,19 @@ targets:
     platform: macOS
     sources:
       - Sources
+    resources:
       - Resources
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.33atlas.noteforge
-        PRODUCT_NAME: NoteForge
-        MARKETING_VERSION: "1.0.0"
-        CURRENT_PROJECT_VERSION: "1"
         INFOPLIST_FILE: Resources/Info.plist
-        CODE_SIGN_STYLE: Automatic
-        COMBINE_HIDPI_IMAGES: YES
-        SWIFT_VERSION: "5.9"
-        MACOSX_DEPLOYMENT_TARGET: "13.0"
         CODE_SIGN_IDENTITY: "-"
-        ENABLE_HARDENED_RUNTIME: NO
+        CODE_SIGN_STYLE: Manual
+        PRODUCT_NAME: NoteForge
+        COMBINE_HIDPI_IMAGES: YES
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
     dependencies:
       - package: SQLite
-        product: SQLite
       - package: Ink
       - package: HotKey
       - package: FileWatcher
