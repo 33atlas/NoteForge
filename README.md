@@ -1,87 +1,52 @@
-# NoteForge 🧠
+# NoteForge
 
-AI-powered personal knowledge management for macOS.
+A personal knowledge management app for macOS.
 
-Capture quickly, AI organizes automatically, find instantly.
+## Requirements
 
-## Features
+- macOS 13.0+
+- Xcode 15.0+
 
-### ⚡ Quick Capture
-- **⌘⇧N** Global hotkey for instant capture
-- Text, voice, URL, screenshot support
-- Quick capture popover
+## Dependencies
 
-### 🤖 AI-Powered
-- Auto-tagging with AI
-- Auto-linking related notes
-- Smart summarization
-- Local-first (privacy) or cloud fallback
+- **SQLite.swift** - Database operations
+- **Ink** - Markdown parsing
+- **HotKey** - Global keyboard shortcuts
+- **FileWatcher** - File system monitoring
 
-### 📝 Note Management
-- Markdown storage (you own your data)
-- Full-text search
-- Tag-based organization
-- Folder support
+## Setup
 
-### 🔍 Powerful Search
-- Full-text search (FTS5)
-- Semantic search (vectors)
-- Hybrid search with reranking
-- Tag/date operators
+1. Clone the repository
+2. Generate the Xcode project:
+   ```bash
+   xcodegen generate
+   ```
+3. Open `NoteForge.xcodeproj` in Xcode
+4. Build and run (⌘R)
 
-## Screenshots
+## Project Structure
 
 ```
-┌──────────┬────────────────┬─────────────────────────────┐
-│ Sidebar  │ Note List      │ Editor                       │
-│          │                │                              │
-│ 📁 All   │ 🔍 Search...  │ # Note Title                 │
-│ 📁 Today │ ────────────  │                              │
-│ 🏷️ Tags  │ Note Preview  │ [Markdown content...]       │
-│   #work  │ Note Preview  │                              │
-│   #ideas │ Note Preview  │ #tag1 #tag2                  │
-└──────────┴────────────────┴─────────────────────────────┘
+NoteForge/
+├── Sources/App/
+│   ├── NoteForgeApp.swift    # App entry point
+│   ├── ContentView.swift     # Main UI
+│   ├── Note.swift            # Note model
+│   ├── NoteStore.swift       # Note state management
+│   └── DatabaseManager.swift # SQLite database
+├── Resources/
+│   ├── Info.plist
+│   └── Assets.xcassets/
+├── project.yml               # XcodeGen configuration
+└── README.md
 ```
 
-## Architecture
+## Usage
 
-```
-┌─────────────────────────────────────────┐
-│        SwiftUI + AppKit Hybrid          │
-├─────────────────────────────────────────┤
-│  Capture: Hotkey, Voice, OCR, URL      │
-├─────────────────────────────────────────┤
-│  AI: Local (llama.cpp) + Cloud         │
-├─────────────────────────────────────────┤
-│  Storage: Markdown + SQLite + Vectors  │
-├─────────────────────────────────────────┤
-│  Search: BM25 + Semantic + Reranking   │
-└─────────────────────────────────────────┘
-```
-
-## Building
-
-### Prerequisites
-- macOS 14.0+
-- Xcode 15+
-
-### Build
-```bash
-cd NoteForge
-swift build
-```
-
-Or open in Xcode:
-```bash
-open NoteForge.xcodeproj
-```
-
-## Tech Stack
-
-- **UI**: SwiftUI + AppKit
-- **Storage**: Markdown files + SQLite
-- **AI**: llama.cpp (local) + Anthropic (cloud)
-- **Search**: FTS5 + vector embeddings
+- **⌘N** - Create new note
+- Select a note from the sidebar to edit
+- Notes are saved automatically to SQLite
+- Markdown preview support via Ink library
 
 ## License
 
