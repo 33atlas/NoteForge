@@ -1,4 +1,4 @@
-# NoteForge MVP - Complete! 🚀
+# NoteForge - Complete PKM System
 
 ## What's Built
 
@@ -15,15 +15,17 @@
 - Source tracking (manual, text, voice, URL, screenshot)
 - Auto-save
 
-### ✅ UI Components
-- **Sidebar**: Folders, tags, quick actions
-- **Note List**: Searchable, sorted by date
-- **Editor**: Title, content, tags, preview
-- **Settings**: General, AI, Storage tabs
+### ✅ NoteStore Module (Implemented Feb 28, 2026)
+- **Note.swift**: Full model with tags, links, source, archive/pin
+- **FileStore.swift**: Markdown file I/O with YAML frontmatter
+- **DatabaseManager.swift**: SQLite.swift for metadata + tag/link indexes
+- **NoteStore.swift**: Unified CRUD, tag/link management
+- **NoteStoreTests.swift**: Basic operation tests
 
 ### ✅ Storage
 - Markdown files in `~/Library/Application Support/NoteForge/Notes/`
-- YAML frontmatter for tags
+- YAML frontmatter for metadata (tags, links, source, dates)
+- SQLite database for fast queries and indexing
 
 ## Project Structure
 ```

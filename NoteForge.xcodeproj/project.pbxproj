@@ -12,6 +12,13 @@
 		A10001020304050600000005 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10001020304050600000006 /* Note.swift */; };
 		A10001020304050600000007 /* NoteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10001020304050600000008 /* NoteStore.swift */; };
 		A10001020304050600000009 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000102030405060000000A /* DatabaseManager.swift */; };
+		A10001020304050600000024 /* NoteEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10001020304050600000025 /* NoteEditorView.swift */; };
+		A10001020304050600000026 /* NoteListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10001020304050600000027 /* NoteListView.swift */; };
+		A10001020304050600000028 /* QuickCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10001020304050600000029 /* QuickCaptureView.swift */; };
+		A1000102030405060000002A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000102030405060000002B /* SettingsView.swift */; };
+		A1000102030405060000002C /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000102030405060000002D /* SidebarView.swift */; };
+		A1000102030405060000002E /* FileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000102030405060000002F /* FileStore.swift */; };
+		A10001020304050600000030 /* NoteStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10001020304050600000031 /* NoteStoreTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +29,13 @@
 		A10001020304050600000008 /* NoteStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteStore.swift; sourceTree = "<group>"; };
 		A1000102030405060000000A /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		A1000102030405060000000C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A10001020304050600000025 /* NoteEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteEditorView.swift; sourceTree = "<group>"; };
+		A10001020304050600000027 /* NoteListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteListView.swift; sourceTree = "<group>"; };
+		A10001020304050600000029 /* QuickCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickCaptureView.swift; sourceTree = "<group>"; };
+		A1000102030405060000002B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		A1000102030405060000002D /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
+		A1000102030405060000002F /* FileStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStore.swift; sourceTree = "<group>"; };
+		A10001020304050600000031 /* NoteStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteStoreTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +65,13 @@
 				A10001020304050600000006 /* Note.swift */,
 				A10001020304050600000008 /* NoteStore.swift */,
 				A1000102030405060000000A /* DatabaseManager.swift */,
+				A10001020304050600000025 /* NoteEditorView.swift */,
+				A10001020304050600000027 /* NoteListView.swift */,
+				A10001020304050600000029 /* QuickCaptureView.swift */,
+				A1000102030405060000002B /* SettingsView.swift */,
+				A1000102030405060000002D /* SidebarView.swift */,
+				A1000102030405060000002F /* FileStore.swift */,
+				A10001020304050600000031 /* NoteStoreTests.swift */,
 				A1000102030405060000000C /* Info.plist */,
 			);
 			path = NoteForge;
@@ -149,6 +170,13 @@
 				A10001020304050600000005 /* Note.swift in Sources */,
 				A10001020304050600000007 /* NoteStore.swift in Sources */,
 				A10001020304050600000009 /* DatabaseManager.swift in Sources */,
+				A10001020304050600000024 /* NoteEditorView.swift in Sources */,
+				A10001020304050600000026 /* NoteListView.swift in Sources */,
+				A10001020304050600000028 /* QuickCaptureView.swift in Sources */,
+				A1000102030405060000002A /* SettingsView.swift in Sources */,
+				A1000102030405060000002C /* SidebarView.swift in Sources */,
+				A1000102030405060000002E /* FileStore.swift in Sources */,
+				A10001020304050600000030 /* NoteStoreTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
