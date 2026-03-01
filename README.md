@@ -1,53 +1,69 @@
 # NoteForge
 
-A personal knowledge management app for macOS.
+A modern personal knowledge management (PKM) app for macOS.
 
 ## Requirements
 
-- macOS 13.0+
+- macOS 13.0 or later
 - Xcode 15.0+
-
-## Dependencies
-
-- **SQLite.swift** - Database operations
-- **Ink** - Markdown parsing
-- **HotKey** - Global keyboard shortcuts
-- **FileWatcher** - File system monitoring
+- XcodeGen (for generating the Xcode project)
 
 ## Setup
 
-1. Clone the repository
-2. Generate the Xcode project:
-   ```bash
-   xcodegen generate
-   ```
-3. Open `NoteForge.xcodeproj` in Xcode
-4. Build and run (⌘R)
+### 1. Install XcodeGen
+
+On macOS:
+```bash
+brew install xcodegen
+```
+
+### 2. Generate the Xcode Project
+
+```bash
+cd NoteForge
+xcodegen generate
+```
+
+### 3. Open in Xcode
+
+```bash
+open NoteForge.xcodeproj
+```
+
+### 4. Build and Run
+
+Press ⌘+R in Xcode, or:
+```bash
+xcodebuild -project NoteForge.xcodeproj -scheme NoteForge -configuration Debug build
+```
+
+## Dependencies
+
+- **SQLite.swift** - SQLite database wrapper
+- **Ink** - Fast Markdown parsing
+- **HotKey** - Global keyboard shortcuts
+- **FileWatcher** - File system monitoring
 
 ## Project Structure
 
 ```
 NoteForge/
-├── Sources/App/
-│   ├── NoteForgeApp.swift    # App entry point
-│   ├── ContentView.swift     # Main UI
-│   ├── Note.swift            # Note model
-│   ├── NoteStore.swift       # Note state management
-│   └── DatabaseManager.swift # SQLite database
-├── Resources/
-│   ├── Info.plist
-│   └── Assets.xcassets/
-├── project.yml               # XcodeGen configuration
-└── README.md
+├── Sources/
+│   ├── App/           # App entry point
+│   ├── Models/        # Data models
+│   ├── Services/      # Business logic & database
+│   └── Views/         # SwiftUI views
+├── Resources/         # App resources
+├── project.yml        # XcodeGen configuration
+└── Package.swift      # Swift Package Manager config
 ```
 
 ## Usage
 
-- **⌘N** - Create new note
-- Select a note from the sidebar to edit
-- Notes are saved automatically to SQLite
-- Markdown preview support via Ink library
+- **⌘+N** - Create new note
+- **⌘+F** - Search notes
+- Select a note from the sidebar to view/edit
 
 ## License
 
-MIT
+MIT License

@@ -1,70 +1,12 @@
 import SwiftUI
+import Ink
 
 struct ContentView: View {
     @EnvironmentObject var noteStore: NoteStore
     @State private var selectedNoteId: UUID?
     @State private var searchText: String = ""
     
-    var body: some View {
-        NavigationSplitView {
-            sidebar
-        } detail: {
-            detailView
-        }
-        .frame(minWidth: 800, minHeight: 600)
-    }
-    
-    private var sidebar: some View {
-        VStack(spacing: 0) {
-            // Search
-            HStack {
-                Image(systemName: "magnifyingglass")
-                    .foregroundColor(.secondary)
-                TextField("Search notes...", text: $searchText)
-                    .textFieldStyle(.plain)
-            }
-            .padding(10)
-            .background(Color(nsColor: .controlBackgroundColor))
-            .cornerRadius(8)
-            .padding()
-            
-            // Notes List
-            List(selection: $selectedNoteId) {
-                ForEach(filteredNotes) { note in
-                    NoteRowView(note: note)
-                        .tag(note.id)
-                }
-                .onDelete(perform: deleteNotes)
-            }
-            .listStyle(.sidebar)
-            
-            // New Note Button
-            Button(action: { noteStore.createNote() }) {
-                Label("New Note", systemImage: "plus")
-            }
-            .buttonStyle(.borderless)
-            .padding()
-        }
-    }
-    
-    @ViewBuilder
-    private var detailView: some View {
-        if let noteId = selectedNoteId,
-           let note = noteStore.notes.first(where: { $0.id == noteId }) {
-            NoteEditorView(note: note)
-                .environmentObject(noteStore)
-        } else {
-            VStack {
-                Image(systemName: "doc.text")
-                    .font(.system(size: 48))
-                    .foregroundColor(.secondary)
-                Text("Select a note or create a new one")
-                    .foregroundColor(.secondary)
-            }
-        }
-    }
-    
-    private var filteredNotes: [Note] {
+    var filteredNotes: [Note] {
         if searchText.isEmpty {
             return noteStore.notes
         }
@@ -74,8 +16,35 @@ struct ContentView: View {
         }
     }
     
-    private func deleteNotes(at offsets: IndexSet) {
-        noteStore.deleteNotes(at: offsets)
+    var body: some View {
+        NavigationSplitView {
+            List(filteredNotes, selection: $selectedNoteId) { note in
+                NoteRowView(note: note)
+                    .tag(note.id)
+            }
+            .listStyle(.sidebar)
+            .navigationSplitViewColumnWidth(min: 200, ideal: 250, max: 300)
+            .searchable(text: $searchText, prompt: "Search notes")
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    Button(action: { noteStore.createNote() }) {
+                        Image(systemName: "plus")
+                    }
+                }
+            }
+        } detail: {
+            if let selectedId = selectedNoteId,
+               let note = noteStore.notes.first(where: { $0.id == selectedId }) {
+                NoteDetailView(note: note)
+            } else {
+                ContentUnavailableView(
+                    "No Note Selected",
+                    systemImage: "doc.text",
+                    description: Text("Select a note from the sidebar or create a new one")
+                )
+            }
+        }
+        .frame(minWidth: 800, minHeight: 500)
     }
 }
 
@@ -87,73 +56,67 @@ struct NoteRowView: View {
             Text(note.title.isEmpty ? "Untitled" : note.title)
                 .font(.headline)
                 .lineLimit(1)
-            
-            Text(note.content.prefix(50))
+            Text(note.content.isEmpty ? "No content" : note.content)
                 .font(.subheadline)
                 .foregroundColor(.secondary)
-                .lineLimit(1)
-            
-            Text(note.formattedDate)
-                .font(.caption2)
-                .foregroundColor(.secondary)
+                .lineLimit(2)
+            Text(note.updatedAt, style: .relative)
+                .font(.caption)
+                .foregroundColor(.tertiary)
         }
         .padding(.vertical, 4)
     }
 }
 
-struct NoteEditorView: View {
-    let note: Note
+struct NoteDetailView: View {
     @EnvironmentObject var noteStore: NoteStore
-    @State private var title: String = ""
-    @State private var content: String = ""
+    let note: Note
+    
+    @State private var title: String
+    @State private var content: String
+    
+    init(note: Note) {
+        self.note = note
+        _title = State(initialValue: note.title)
+        _content = State(initialValue: note.content)
+    }
     
     var body: some View {
         VStack(spacing: 0) {
-            // Title Field
-            TextField("Note Title", text: $title)
+            TextField("Title", text: $title)
                 .font(.title)
                 .textFieldStyle(.plain)
                 .padding()
                 .onChange(of: title) { _, newValue in
-                    noteStore.updateNoteTitle(note.id, title: newValue)
+                    noteStore.updateNote(id: note.id, title: newValue)
                 }
             
             Divider()
             
-            // Content Editor
             TextEditor(text: $content)
                 .font(.body)
                 .scrollContentBackground(.hidden)
                 .padding()
                 .onChange(of: content) { _, newValue in
-                    noteStore.updateNoteContent(note.id, content: newValue)
+                    noteStore.updateNote(id: note.id, content: newValue)
                 }
             
             Divider()
             
-            // Preview
-            if !content.isEmpty {
-                ScrollView {
-                    MarkdownPreviewView(content: content)
-                        .padding()
+            HStack {
+                if !content.isEmpty {
+                    let markdown = try? MarkdownParser().html(from: content)
+                    Text("Preview: \(markdown?.isEmpty == false ? "Available" : "None")")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
                 }
-                .frame(maxHeight: 200)
-                .background(Color(nsColor: .controlBackgroundColor))
+                Spacer()
+                Text("Last updated: \(note.updatedAt, style: .relative)")
+                    .font(.caption)
+                    .foregroundColor(.tertiary)
             }
+            .padding()
         }
-        .onAppear {
-            title = note.title
-            content = note.content
-        }
-    }
-}
-
-struct MarkdownPreviewView: View {
-    let content: String
-    
-    var body: some View {
-        Text(AttributedString(markdown: content))
-            .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 

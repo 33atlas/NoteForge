@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "NoteForge",
     platforms: [
-        .macOS(.v14)
+        .macOS(.v13)
     ],
     products: [
         .executable(
@@ -12,29 +12,48 @@ let package = Package(
             targets: ["App"]
         )
     ],
+    dependencies: [
+        .package(url: "https://github.com/stephencelis/SQLite.swift.git", from: "0.15.0"),
+        .package(url: "https://github.com/JohnSundell/Ink.git", from: "0.6.0"),
+        .package(url: "https://github.com/soffes/HotKey.git", from: "0.2.0"),
+        .package(url: "https://github.com/eonist/FileWatcher.git", from: "0.2.3")
+    ],
     targets: [
         .executableTarget(
             name: "App",
             dependencies: [
                 "Models",
-                "Stores",
-                "Views"
+                "Services",
+                "Views",
+                .product(name: "SQLite", package: "SQLite.swift"),
+                .product(name: "Ink", package: "Ink"),
+                .product(name: "HotKey", package: "HotKey"),
+                .product(name: "FileWatcher", package: "FileWatcher")
             ],
             path: "Sources/App"
         ),
         .target(
             name: "Models",
+            dependencies: [],
             path: "Sources/Models"
         ),
         .target(
-            name: "Stores",
-            path: "Sources/Stores",
-            dependencies: ["Models"]
+            name: "Services",
+            dependencies: [
+                "Models",
+                .product(name: "SQLite", package: "SQLite.swift"),
+                .product(name: "FileWatcher", package: "FileWatcher")
+            ],
+            path: "Sources/Services"
         ),
         .target(
             name: "Views",
-            path: "Sources/Views",
-            dependencies: ["Models", "Stores"]
+            dependencies: [
+                "Models",
+                "Services",
+                .product(name: "Ink", package: "Ink")
+            ],
+            path: "Sources/Views"
         )
     ]
 )
